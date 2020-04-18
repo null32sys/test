@@ -1,0 +1,32 @@
+<odoo>
+	<record id="submission_report_wizard" model="ir.ui.view">
+		<field name="name">submission_report</field>
+		<field name="model">submission.report</field>
+		<field name="arch" type="xml">
+			<form string="Submission Report">
+			<group>
+				<group>
+					<field name="date_from"/>
+				</group>
+				<group>
+					<field name="date_to"/>
+				</group>
+				<field name="groups_to_submit"/>
+			</group>
+				<footer>
+					<button name="print_report" type="object" string="Print Report" class="btn btn-primary"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="submission_report_action">
+	    <field name="name">Submission report</field>
+	    <field name="res_model">submission.report</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">form</field>
+	    <field name="target">new</field>
+    </record>
+
+	<menuitem id="_menu_submission_report" name="Submission Report" parent="work_diary.main_workdiary_menu" action="submission_report_action" groups="work_diary_group_manager"/>
+</odoo>

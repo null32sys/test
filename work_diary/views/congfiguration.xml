@@ -1,0 +1,32 @@
+<odoo>
+	<record model="ir.ui.view" id="config_setting_form_view">
+		<field name="name">workdiary.config.setting.form</field>
+		<field name="model">workdiary.config.setting</field>
+		<field name="arch" type="xml">
+			<form string="Configuration">
+				<sheet>
+					<field name="groups_to_submit"/>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="config_setting_tree_view">
+	    <field name="name">workdiary.config.setting.tree</field>
+	    <field name="model">workdiary.config.setting</field>
+	    <field name="arch" type="xml">
+	        <tree> 
+	      		<field name="groups_to_submit"/>
+	        </tree>
+      	</field>
+  </record>
+  
+    <record model="ir.actions.act_window" id="configuration_list_action">
+	    <field name="name">Configuration</field>
+	    <field name="res_model">workdiary.config.setting</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_workdiary_configuration" name="Configuration" parent="main_workdiary_menu" action="configuration_list_action" sequence="20" groups="work_diary_group_manager"/>
+</odoo>

@@ -1,0 +1,62 @@
+<odoo>
+  <record model="ir.ui.view" id="work_diary_form_view">
+    <field name="name">work.diary.form</field>
+    <field name="model">workdiary</field>
+    <field name="arch" type="xml">
+      <form string="Work Diary">
+        <sheet>
+          <group>
+            <field name="creator" readonly="1"/> 
+            <field name="date_created"/>  
+            <field name="date_from"/>  
+            <field name="date_to"/> 
+            <field name="summary_category" widget="many2many_tags"/>
+          </group>
+            <notebook>
+              <page string="Week Summary">
+                <field name="week_summary"/>
+              </page>
+              <page string="Plan">  
+                <field name="plan"/>
+              </page>
+              <page string="Suggestions">
+                <field name="suggestions"/>
+              </page>
+            </notebook>
+            
+        </sheet>  
+      </form>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="work_diary_tree_view">
+    <field name="name">work.diary.form</field>
+    <field name="model">workdiary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="creator"/> 
+        <field name="user" invisible="1"/>
+        <field name="date_created"/>  
+        <field name="date_from"/>  
+        <field name="date_to"/> 
+        <field name="week_summary"/>  
+        <field name="plan"/>
+        <field name="suggestions"/>
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="workdiary_list_action">
+    <field name="name">WorkDiary</field>
+    <field name="res_model">workdiary</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="main_workdiary_menu" name="Work Diary"/>
+  <menuitem id="_menu_workdiary" name="Work" parent="main_workdiary_menu" action="workdiary_list_action" groups="work_diary_group_user"/>
+    
+</odoo>
+
+
+

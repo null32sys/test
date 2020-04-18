@@ -1,0 +1,72 @@
+<odoo>
+    <template id="work_diary_template">
+        <t t-call="report.external_layout">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <header>
+                        <style type="text/css">
+                            table,tr,td,thead,th {
+                                border: black 1px solid;
+                            }
+                            div{
+                                line-height: 3;
+                                font-size:18px;
+                            }
+                        </style>
+                    </header>
+                    <t t-set="data" t-value="doc.get_report_data()"/>
+                    <div>Work Diary from <b><t t-esc="doc.date_from"/></b> to <b><t t-esc="doc.date_to"/></b></div>
+                    <div><b>Groups: List of Access Rights Group</b></div>
+                    <div><b>Not Submitted: </b></div>
+                    <table class="table">
+                        <thead style="background: #DCDCDC;">
+                            <tr>
+                                <th style="border-bottom: 1px solid #040404">User Name</th>
+                                <th style="border-bottom: 1px solid #040404">Access Rights Group</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data['not_submitted']" t-as="nt_sbmt">
+                                <tr>
+                                    <td><span t-field="nt_sbmt.name"/></td>
+                                    <td>
+                                        <span t-field="nt_sbmt.access_rights_id"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div t-if="doc.groups_to_submit"><b>Submitted</b></div>
+                    <t t-foreach="data['submitted']" t-as="grp">
+                        <table class="table">
+                            <thead style="background: #DCDCDC;">
+                                <tr>
+                                    <th style="border-bottom: 1px solid #040404"><t t-esc="grp.keys()[0]"/></th>
+                                    <th style="border-bottom: 1px solid #040404">Week Summary</th>
+                                    <th style="border-bottom: 1px solid #040404">Plan for Next Week</th>
+                                    <th style="border-bottom: 1px solid #040404">Suggestions for Improvemetns / Challenges Faced</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="grp[grp.keys()[0]]">
+                                    <t t-foreach="grp[grp.keys()[0]]" t-as="smbt">
+                                        <tr>
+                                            <td><span t-field="smbt.creator"/></td>
+                                            <td><span t-field="smbt.week_summary"/></td>
+                                            <td><span t-field="smbt.plan"/></td>
+                                            <td><span t-field="smbt.suggestions"/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report id="work_diary_report" string="Work Diary" model="submission.report" report_type="qweb-pdf" name="work_diary.work_diary_template" file="work_diary.work_diary_template" />
+</odoo>
